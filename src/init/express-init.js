@@ -62,7 +62,8 @@
                         this.setupHelmet(appConfig.app);
                         this.setupBodyparser(appConfig.app);
                         this.initRouter(appConfig.app, nconf.get('routers'), nconf.get('paths:routeDir'));
-                    }
+                        this.initStaticFiles(appConfig.app, nconf.get('staticDirs'));
+                }
                 });
                 
                 let asyncInitializations = [];
@@ -155,6 +156,15 @@
                 }
                 
             },
+            initStaticFiles: function(app, staticDirs){
+
+                //Configure express to serve static files such as js files, css, images.
+                for(let i = 0; i < staticDirs.length; i++) {
+                    console.log('Serving static dir: ' + staticDirs[i]);
+                    app.use(express.static(staticDirs[i]));
+                }
+                app.use(express.static(nconf.get('paths:appDir')));
+            },
            /**
             * Configure app to use body-parser module.
             * This will let us get the data from a POST.
@@ -165,9 +175,9 @@
             },
             setupHelmet: function(app) {
                 app.use(helmet());
-                
+
                 app.get('/', function (req, res) {
-                    res.send('Hello World!');
+                    res.sendFile(path.join(nconf.get('paths:appDir'), 'home.html'));
                 });
             },
             bootServer: function(appConfig){
