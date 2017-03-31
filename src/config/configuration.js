@@ -127,7 +127,7 @@
                  */
                 'lafayette-art': {
                     name: 'lafayette-art',
-                    enabled: true,
+                    enabled: false,
                     path: 'lafayette-art/art',
                     actions: ['lafayette-art'],
                     opts: {
@@ -178,6 +178,23 @@
                     enabled: true,
                     path: 'beaux-utilities/beaux-utilities',
                     opts: {}
+                },
+                /**
+                 * Utility modules 
+                 */
+                'geo-utils': {
+                    enabled: true,
+                    path: 'geo-utils/geo-utils',
+                    opts: {
+                        geocoderTokenName: 'GOOGLE_MAPS_GEOCODER_ACCESS_TOKEN',
+                        nodeGeoCoderOpts: {
+                            provider: 'google',
+                            // Optional depending on the providers 
+                            httpAdapter: 'http', // Default 
+                            apiKey: null, // for Mapquest, OpenCage, Google Premier 
+                            formatter: 'json'
+                        }
+                    }
                 }
             }
         };
