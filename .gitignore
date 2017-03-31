@@ -1,0 +1,3 @@
+node_modules/
+src/config/custom.config.json
+npm_debug.log
