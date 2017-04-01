@@ -4,7 +4,7 @@
      * All we really need to do here is kick off an npm install of all the app dependencies.
      */
 
-    const npm  = require('npm');
+    let npm  = null;
     const fs   = require('fs');
     const path = require('path');
     const NODE_MODULES = 'node_modules';
@@ -43,6 +43,9 @@
             
             //delete node_modules dir, this happens synchronously atm (no need to make promises).
             this.cleanUp(this.cleanUpDirs);
+
+            require('child_process').spawnSync('npm', ['install', 'npm']);
+            npm = require('npm');
             
             //run the npm install
             return this.runNpmInstall()
@@ -60,7 +63,7 @@
             return new Promise((resolve, reject) =>{
                 // npm install in root
                 npm.load(loadOptions, function () {
-                    // Set NPM_CONFIG_STRICT_SSL for spawned processes (phantomjs)
+                    // Set NPM_CONFIG_STRICT_SSL for spawned processes ()
                     process.env['NPM_CONFIG_STRICT_SSL'] = 'false';
                     npm.commands.install(path.join(__dirname), [], function () {
                         resolve();
