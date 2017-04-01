@@ -70,7 +70,6 @@
                 
                 asyncInitializations.push(this.initModules(nconf.get('modules'), nconf.get('paths:modulesDir')));
                 asyncInitializations.push(this.initClients(nconf.get('clients'), nconf.get('paths:clientsDir'), appConfigs));
-                asyncInitializations.push(this.initDomains(nconf.get('domains'), nconf.get('paths:domainsDir')));
                 
                 Q.all(asyncInitializations).then(() =>{
                     appConfigs.forEach((appConfig) => {
@@ -85,9 +84,6 @@
              */
             initClients: function(clients, clientDir, appConfig) {
                 return initMiddleware('client', clients, clientDir, appConfig);
-            },
-            initDomains: function(domains, domainsDir) {
-                return initMiddleware('domain', domains, domainsDir);
             },
             initModules: function(modules, modulesDir){
                 return initMiddleware('module', modules, modulesDir);
