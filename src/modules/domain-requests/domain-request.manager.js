@@ -22,11 +22,14 @@
     
     const mapActionToDomain = (domain) => {
         //require domain, run initializer, store reference in initializedDomains
-        let domainModule = require(path.join(nconf.get('paths:domainDir'), domain.path))(domain.opts).initialize();
-        
-        domain.actions.forEach((actionType) => {
-            initializedDomains[actionType] = domainModule;
+        let domainModule = require(path.join(nconf.get('paths:domainsDir'), domain.path))(domain.opts);
+        Q.when(domainModule.initialize()).then(() => {
+            domain.actions.forEach((actionType) => {
+                initializedDomains[actionType] = domainModule;
+            });
         });
+        
+        
     };
     
     const responseDigest = (message) => {
@@ -42,20 +45,23 @@
     
     const respond = function(clientName, methods, bot, message, cb){
         if(methods[clientName]){
-            return methods[clientName](bot, message);
+            return Q.when(methods[clientName](bot, message));
         } else {
-            methods[DEFAULT_RESPONSE_MTHD_NM](bot, message, cb);
+            return Q.when(methods[DEFAULT_RESPONSE_MTHD_NM](bot, message, cb));
         }
     };
     
     module.exports = {
         initialize: () => {
-            
+            let domains = nconf.get('domains');
             if(nconf.get('modules:domainRequestManager:enabled') === true){
                 console.log(blue('Initializing domain request manager.'));
                 
                 let domain = null;
-                for(domain in nconf.get('domains')){
+                let key = null;
+                for(key in domains){
+                    domain = domains[key];
+                    console.log(domain);
                     if(domain.enabled === true){
                         mapActionToDomain(domain);
                     }
