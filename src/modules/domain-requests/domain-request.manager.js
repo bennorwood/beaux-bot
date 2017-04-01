@@ -61,7 +61,6 @@
                 let key = null;
                 for(key in domains){
                     domain = domains[key];
-                    console.log(domain);
                     if(domain.enabled === true){
                         mapActionToDomain(domain);
                     }
