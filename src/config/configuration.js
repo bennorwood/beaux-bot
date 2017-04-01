@@ -131,13 +131,13 @@
                  */
                 'lafayette-art': {
                     name: 'lafayette-art',
-                    enabled: false,
+                    enabled: true,
                     path: 'lafayette-art/art',
                     actions: ['lafayette-art'],
                     opts: {
-                        protocol:'https://',
-                        hostname: 'services.arcgis.com/xQcS4egPbZO43gZi/arcgis/rest/services/Lafayette_Public_Art/FeatureServer/0/query?outSR=4326',
-                        endQueryStr: '&outFields=*&f=json'
+                        arcGisParams:{
+                            url:'https://services.arcgis.com/xQcS4egPbZO43gZi/arcgis/rest/services/Lafayette_Public_Art/FeatureServer/0/'
+                        }
                     }
                 }
             },

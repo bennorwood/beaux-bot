@@ -31,7 +31,7 @@
     
     const responseDigest = (message) => {
         //grab action from message object, if no domain exists for action use default api.ai response
-        if(!message.apiai.result.actionIncomplete && initializedDomains[message.apiai.result.action]){
+        if(message.apiai.result.actionIncomplete === false && initializedDomains[message.apiai.result.action]){
             return Q.when(initializedDomains[message.apiai.result.action].prepareResponse(message)).then((responseMths)=>{
                 return Object.assign({}, baseResponseObject, responseMths);
             });
