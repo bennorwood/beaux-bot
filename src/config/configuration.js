@@ -9,6 +9,9 @@
             appName: 'beaux-bot',
             port: 7000,
             mode: 'development',
+            staticDirs: [
+                path.resolve(__dirname, '..', 'public')
+            ],
             tunnelOpts: {
                 subdomain: 'beauxbot'
             },
@@ -47,7 +50,8 @@
                 clientsDir: path.resolve(__dirname, '..', 'clients'),
                 domainsDir: path.resolve(__dirname, '..', 'domains'),
                 modulesDir: path.resolve(__dirname, '..', 'modules'),
-                routeDir: path.resolve(__dirname, '..', 'routes')
+                routeDir: path.resolve(__dirname, '..', 'routes'),
+                appDir: path.resolve(__dirname, '..','..','public','app')
             },
             /**
              * Routers are Express based REST endpoints: https://expressjs.com/en/4x/api.html#router

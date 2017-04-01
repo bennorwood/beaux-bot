@@ -1,0 +1,28 @@
+/*Bootstrap modifications*/
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.img-fluid {
+    max-width: 10%;
+    text-align: center;
+}
+
+.lead {  font-size: 2rem;  }
+
+.row {
+    padding-bottom: 8rem;
+    padding-top: 8rem;
+    border-bottom: 1px solid #E5E5E5;
+}
+/*End Bootstrap modifications*/
+
+/*Home Styles*/
+.home-jumbotron {
+    background-color: maroon;
+    color: azure;
+    border-radius: 0;
+    margin-bottom: 0;
+}
+/*End Home Styles*/
