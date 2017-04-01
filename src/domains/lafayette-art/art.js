@@ -4,6 +4,8 @@
     const nconf    = require('nconf');
     const GeoUtils = require(path.join(nconf.get('paths:modulesDir'), 'geo-utils', 'geo-utils'));
     
+    const FAIL_MESSAGE = 'I\'m sorry! I can\'t find any art right now. Please ask me again later!';
+    
     let featureClient = null;
     
     module.exports = function(opts){
