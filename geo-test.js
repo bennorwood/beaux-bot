@@ -1,27 +1,17 @@
 /**
  * Geo Utils used through out the project.
- * 
- * TODO: Figure out spatial queries.
  */
 (() => {
     
+    const nconf = require('nconf');
     const BlueBird = require('bluebird');
     
-    /**
-     * https://github.com/Esri/geoservices-js
-     * Geo-Coding: https://github.com/Esri/geoservices-js/blob/master/docs/Geocoding.md
-     * 
-     */
     const Geoservices = require('geoservices');
     const client = new Geoservices();
     BlueBird.promisifyAll(client.geocode);
     
     let lib = {
-        initialize: function() {/*no-op*/
-        
-            /**
-             * Init just testing out a rest endpoint. Should be a no-op function
-             */
+        initialize: function(opts) {/*no-op*/
             let params = {
                 url: 'https://services.arcgis.com/xQcS4egPbZO43gZi/arcgis/rest/services/Lafayette_Public_Art/FeatureServer/0/'
             };
@@ -57,9 +47,9 @@
                     console.log(data.features[0]);
                 });
                 
-                featureClient.queryAsync(queryParams).then((data)=>{
+                /* featureClient.queryAsync(queryParams).then((data)=>{
                     console.log(data);
-                });
+                }); */
                 
                 const http = require('http');
                 
@@ -84,14 +74,14 @@
         ArcGISClient: client,
         getFeatureServiceClient: function(params){
             return new Promise( (resolve, reject) => {
-                let featureServiceClient = client.featureservice( params , function (err, result) {
+               let featureServiceClient = client.featureservice( params , function (err, result) {
                     if (err) {
-                        console.error('GEO-UTILS ERROR: ' + err);
+                        console.error("GEO-UTILS ERROR: " + err);
                         reject(err);
                     } else {
                         //promisify featureServiceClient
                         BlueBird.promisifyAll(featureServiceClient);
-                        console.log('Metadata: ');
+                        console.log("Metadata: ");
                         console.log(result);
                         resolve(featureServiceClient);
                     }
@@ -100,6 +90,6 @@
         }
     };
     
-    //lib.initialize();
+    lib.initialize();
     module.exports = lib;
 })();
