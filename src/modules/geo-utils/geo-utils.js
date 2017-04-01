@@ -3,58 +3,45 @@
  */
 (() => {
     
+    const nconf = require('nconf');
     const BlueBird = require('bluebird');
     
     const Geoservices = require('geoservices');
     const client = new Geoservices();
-    BlueBird.promisifyAll(client.geocode);
+    
+    const NodeGeocoder = require('node-geocoder');
+    const options = {
+        provider: 'google',
+        // Optional depending on the providers
+        httpAdapter: 'https', // Default
+        apiKey: nconf.get('GOOGLE_MAPS_GEOCODER_ACCESS_TOKEN'), // for Mapquest, OpenCage, Google Premier
+        formatter: null         // 'gpx', 'string', ...
+    };
+    /**
+     * Docs for Turning addresses into Lat Long Coordinates
+     * https://github.com/nchaulet/node-geocoder
+     */
+    const geocoder = NodeGeocoder(options);
     
     let lib = {
-        initialize: function() {/*no-op*/
-            /**
-             * Leaving sample query setup below.
-             * https://github.com/Esri/geoservices-js/blob/master/docs/FeatureServices.md
-             */
-             /* 
-            let params = {
-                url: 'https://services.arcgis.com/xQcS4egPbZO43gZi/arcgis/rest/services/Lafayette_Public_Art/FeatureServer/0/'
-            };
-                
-            this.getFeatureServiceClient(params).then((featureClient)=>{
-                const queryParams = {
-                    geometryType: 'esriGeometryPoint',
-                    geometry: JSON.stringify({
-                        x: -92.017437,
-                        y: 30.224518,
-                        spatialReference: {
-                            wkid: 4326
-                        }
-                    }),
-                    spatialRel: 'esriSpatialRelContains',
-                    distance: 100,
-                    outFields: '*',
-                    returnGeometry: true,
-                    units: 'esriSRUnit_Meter'
-                };
-                
-                featureClient.queryAsync(queryParams).then((data)=>{
-                    console.log(data);
-                });
-                
-            });*/
+        initialize: function() {/*no-op*/},
+        GeoCoderClient: geocoder,
+        getLafayetteLocationItem: function(locationArray){
+            for(let index=0; index < locationArray.length; index++){
+                if(locationArray[index].city === 'Lafayette' && locationArray[index].administrativeLevels.level1long === 'Louisiana'){
+                    return locationArray[index];
+                }
+            }
         },
-        ArcGISClient: client,
         getFeatureServiceClient: function(params){
             return new Promise( (resolve, reject) => {
-                let featureServiceClient = client.featureservice( params , function (err, result) {
+                let featureServiceClient = client.featureservice( params , function (err) {
                     if (err) {
                         console.error('GEO-UTILS ERROR: ' + err);
                         reject(err);
                     } else {
                         //promisify featureServiceClient
                         BlueBird.promisifyAll(featureServiceClient);
-                        console.log('Metadata: ');
-                        console.log(result);
                         resolve(featureServiceClient);
                     }
                 });

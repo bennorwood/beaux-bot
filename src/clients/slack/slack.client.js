@@ -46,7 +46,6 @@
                     opts.botEvents.forEach(function(event){
                         slackBotController.on(event, function(bot, message){
                             apiaiManager.processUserMessage(bot, message).then(()=>{
-                                console.log(message);
                             }, console.log)
                             .then(()=>{
                                 return responseManager.responseDigest(message).then((responseMethods)=> {

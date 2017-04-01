@@ -137,7 +137,8 @@
                     opts: {
                         arcGisParams:{
                             url:'https://services.arcgis.com/xQcS4egPbZO43gZi/arcgis/rest/services/Lafayette_Public_Art/FeatureServer/0/'
-                        }
+                        },
+                        distance: 300
                     }
                 }
             },
