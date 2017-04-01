@@ -5,7 +5,7 @@
 }
 
 .img-fluid {
-    max-width: 10%;
+    max-width: 50%;
     text-align: center;
 }
 
@@ -20,7 +20,7 @@
 
 /*Home Styles*/
 .home-jumbotron {
-    background-color: maroon;
+    background-color: #3c3c3c;
     color: azure;
     border-radius: 0;
     margin-bottom: 0;
