@@ -63,8 +63,8 @@
                         this.setupBodyparser(appConfig.app);
                         this.initRouter(appConfig.app, nconf.get('routers'), nconf.get('paths:routeDir'));
                         this.initStaticFiles(appConfig.app, nconf.get('staticDirs'));
-                }
-            });
+                    }
+                });
                 
                 let asyncInitializations = [];
                 
