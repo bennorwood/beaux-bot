@@ -1,85 +1,47 @@
 /**
  * Geo Utils used through out the project.
- * 
- * TODO: Figure out spatial queries.
  */
 (() => {
     
     const BlueBird = require('bluebird');
     
-    /**
-     * https://github.com/Esri/geoservices-js
-     * Geo-Coding: https://github.com/Esri/geoservices-js/blob/master/docs/Geocoding.md
-     * 
-     */
     const Geoservices = require('geoservices');
     const client = new Geoservices();
     BlueBird.promisifyAll(client.geocode);
     
     let lib = {
         initialize: function() {/*no-op*/
-        
             /**
-             * Init just testing out a rest endpoint. Should be a no-op function
+             * Leaving sample query setup below.
+             * https://github.com/Esri/geoservices-js/blob/master/docs/FeatureServices.md
              */
+             /* 
             let params = {
                 url: 'https://services.arcgis.com/xQcS4egPbZO43gZi/arcgis/rest/services/Lafayette_Public_Art/FeatureServer/0/'
             };
-            
+                
             this.getFeatureServiceClient(params).then((featureClient)=>{
-                /* const queryParams = {
-                    f: 'json',
+                const queryParams = {
                     geometryType: 'esriGeometryPoint',
-                    geometry: {
+                    geometry: JSON.stringify({
                         x: -92.017437,
                         y: 30.224518,
                         spatialReference: {
                             wkid: 4326
                         }
-                    },
+                    }),
                     spatialRel: 'esriSpatialRelContains',
                     distance: 100,
+                    outFields: '*',
                     returnGeometry: true,
                     units: 'esriSRUnit_Meter'
-                }; */
-                
-                const queryParams = {
-                    returnGeometry: true,
-                    where: '1=1',
-                    outSR: '3857',
-                    outFields: '*'
                 };
-                
-                featureClient.query(queryParams, function(err, data){
-                    if(err) console.log(err);
-                    
-                    console.log(data);
-                    console.log(data.features[0]);
-                });
                 
                 featureClient.queryAsync(queryParams).then((data)=>{
                     console.log(data);
                 });
                 
-                const http = require('http');
-                
-                http.get('http://services.arcgis.com/xQcS4egPbZO43gZi/arcgis/rest/services/Lafayette_Public_Art/FeatureServer/0/query?where=1%3D1&f=json', function(response) {
-                    // Continuously update stream with data
-                    let body = '';
-                    response.on('data', function(d) {
-                        body += d;
-                    });
-                    
-                    response.on('end', function() {
-
-                        // Data reception is done, do whatever with it!
-                        let parsed = JSON.parse(body);
-                        //console.log(body);
-                        console.log(parsed);
-                        console.log(parsed.features[0]);
-                    });
-                });
-            });
+            });*/
         },
         ArcGISClient: client,
         getFeatureServiceClient: function(params){
@@ -100,6 +62,5 @@
         }
     };
     
-    //lib.initialize();
     module.exports = lib;
 })();
