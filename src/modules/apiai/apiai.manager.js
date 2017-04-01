@@ -106,7 +106,7 @@
         if(message.text){
             return fireRequest('textRequest', [message.text, userSessionOpts]).then((apiaiResp)=>{
                 message.apiai = apiaiResp;
-                console.log(apiaiResp);
+                //console.log(apiaiResp);
                 return message;
             },(error) =>{
                 console.log(red('APIAI: ',error));
