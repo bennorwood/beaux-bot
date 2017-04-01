@@ -16,14 +16,14 @@
                 subdomain: 'beauxbot'
             },
             /**
-             * The purpose of this method is to resolve environment variable tokens if 
+             * The purpose of this method is to resolve environment variable tokens if
              * running server in development mode. You can prefix keys 'DEV_' to use personal version of service. For example,
              * if you have an api.ai agent and a client key, you can store the token in an environment variable named 'DEV_APIAI_CLIENT_ACCESS_TOKEN'
              * while still maintaining a 'APIAI_CLIENT_ACCESS_TOKEN' for 'production' mode.
              */
             resolveTokenKey: function(nconf, mode, base) {
                 const devTokenPrefix = 'DEV_';
-                
+
                 if(mode === 'development' && nconf.get(devTokenPrefix + base)){
                     return devTokenPrefix + base;
                 } else {
@@ -35,7 +35,7 @@
                  * Using morgan module for logging
                  * https://github.com/expressjs/morgan#predefined-formats
                  */
-                
+
                 development: {
                     format: 'dev'
                 },
@@ -122,7 +122,7 @@
                 }
             },
             /**
-             * Domains are api.ai specific modules that will handle processing/resolving 
+             * Domains are api.ai specific modules that will handle processing/resolving
              * any domain specific query.
              */
             domains: {
@@ -147,7 +147,7 @@
                     path: 'lafayette-events/events',
                     actions: ['lafayette-events'],
                     opts: {
-                        
+
                     }
                 },
                 'lafayette-incidents': {
@@ -161,6 +161,13 @@
                         },
                         distance: 150
                     }
+                },
+                'uv-data': {
+                    name: 'uv-data',
+                    enabled: true,
+                    path: 'uv-data/uv',
+                    actions: ['uv-data'],
+                    opts: {}
                 }
             },
             /**
@@ -194,11 +201,11 @@
                     enabled: true,
                     path: 'domain-requests/domain-request.manager',
                     opts: {
-                        
+
                     }
                 },
                 /**
-                 * Utility modules 
+                 * Utility modules
                  */
                 'beaux-utilities': {
                     enabled: true,
@@ -206,7 +213,7 @@
                     opts: {}
                 },
                 /**
-                 * Utility modules 
+                 * Utility modules
                  */
                 'geo-utils': {
                     enabled: true,
@@ -215,15 +222,20 @@
                         geocoderTokenName: 'GOOGLE_MAPS_GEOCODER_ACCESS_TOKEN',
                         nodeGeoCoderOpts: {
                             provider: 'google',
-                            // Optional depending on the providers 
-                            httpAdapter: 'http', // Default 
-                            apiKey: null, // for Mapquest, OpenCage, Google Premier 
+                            // Optional depending on the providers
+                            httpAdapter: 'http', // Default
+                            apiKey: null, // for Mapquest, OpenCage, Google Premier
                             formatter: 'json'
                         }
                     }
+                },
+
+                'uv-hourly': {
+                    enabled: true,
+                    path: 'uv-hourly/uv-hourly',
+                    opts: {}
                 }
             }
         };
     };
 })();
-
