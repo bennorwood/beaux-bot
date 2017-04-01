@@ -14,14 +14,14 @@
 .row {
     padding-bottom: 8rem;
     padding-top: 8rem;
-    border-bottom: 1px solid #E5E5E5;
+    border-bottom: 1px solid #3c3c3c;
 }
 /*End Bootstrap modifications*/
 
 /*Home Styles*/
 .home-jumbotron {
     background-color: #3c3c3c;
-    color: azure;
+    color: white;
     border-radius: 0;
     margin-bottom: 0;
 }
