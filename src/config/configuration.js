@@ -140,6 +140,15 @@
                         },
                         distance: 300
                     }
+                },
+                'lafayette-events': {
+                    name: 'lafayette-events',
+                    enabled: true,
+                    path: 'lafayette-events/events',
+                    actions: ['lafayette-events'],
+                    opts: {
+                        
+                    }
                 }
             },
             /**
