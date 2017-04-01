@@ -149,6 +149,18 @@
                     opts: {
                         
                     }
+                },
+                'lafayette-incidents': {
+                    name: 'lafayette-incidents',
+                    enabled: true,
+                    path: 'lafayette-incidents/incidents',
+                    actions: ['lafayette-incidents'],
+                    opts: {
+                        arcGisParams: {
+                            url: 'https://services.arcgis.com/fOr4AY8t0ujnJsua/arcgis/rest/services/CV_CAD_CMV_DSH/FeatureServer/0/'
+                        },
+                        distance: 150
+                    }
                 }
             },
             /**
