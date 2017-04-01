@@ -3,9 +3,6 @@
     
     const nconf    = require('nconf');
     const GeoUtils = require(path.join(nconf.get('paths:modulesDir'), 'geo-utils', 'geo-utils'));
-    const prepareRequest = function(){
-        
-    };
     
     let featureClient = null;
     
@@ -16,13 +13,12 @@
                 console.log(opts);
                 return GeoUtils.getFeatureServiceClient(opts.arcGisParams).then((client) => {
                     featureClient = client;
-                    
-                    return this;
                 });
             },
             prepareResponse: function(message){
                 console.log('$$$$');
                 console.log(message.apiai.result);
+                console.log(featureClient);
                 
                 /* const queryParams = {
                     geometryType: 'esriGeometryPoint',
@@ -45,7 +41,7 @@
                 }); */
                 
                 //async stuff here
-                return new Promise((resolve, reject)=>{
+                return new Promise((resolve)=>{
                     //do whatever async
                     
                     resolve({
@@ -54,7 +50,7 @@
                             bot.reply(message, 'Data message');
                         }
                     });
-                })
+                });
             }
         };
     };

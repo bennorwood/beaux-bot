@@ -58,6 +58,7 @@
                 console.log(blue('Initializing domain request manager.'));
                 
                 let domain = null;
+                let key = null;
                 for(key in domains){
                     domain = domains[key];
                     console.log(domain);
