@@ -1,5 +1,5 @@
 # Beaux Bot!
-![alt tag](http://i.imgur.com/OYYn9jJ.png)
+![alt tag](http://i.imgur.com/PMu6X4D.png)
 
 [![Build Status](https://travis-ci.org/bennorwood/beaux-bot.svg?branch=master)](https://travis-ci.org/bennorwood/beaux-bot)
 
