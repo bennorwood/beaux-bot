@@ -45,14 +45,13 @@
             },
             initialize: function(){
                 let isHttpEnabled = true;
-                
                 let appConfigs = [
                     {
                         enabled: isHttpEnabled,
                         name: 'http',
                         app: express(),
                         server: http,
-                        port: nconf.get('port')
+                        port: process.env.PORT || nconf.get('port')
                     }
                 ];
                 
@@ -127,11 +126,11 @@
                 app.use(morgan(format));
             }, 
             initTunnel: function(){
-                console.log(cyan('Establishing Tunnel Connection...'));
                 /**
                  * So we can use webhooks, we need to open up this port to the world.
                  */
                 if(this.getMode().toUpperCase() === 'DEVELOPMENT'){
+                    console.log(cyan('Establishing Tunnel Connection...'));
                     return new Promise((resolve, reject) => {
                         const localtunnel = require('localtunnel');
                         
